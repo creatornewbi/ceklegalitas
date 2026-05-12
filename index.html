@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Cek Legalitas Fintek</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .page {
+            display: none;
+            width: 100%;
+        }
+        .active {
+            display: block;
+        }
+        img {
+            width: 100%;
+            display: block;
+        }
+        /* Area klik transparan */
+        .clickable {
+            position: absolute;
+            cursor: pointer;
+            /* background: rgba(255, 0, 0, 0.3);  Hapus komentar ini untuk melihat area klik */
+        }
+        /* Input field custom untuk halaman 2 */
+        #input-container {
+            position: absolute;
+            top: 53%;
+            left: 10%;
+            width: 80%;
+        }
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="page1" class="page active">
+        <img src="gambar1.png" alt="Halaman Awal">
+        <div class="clickable" style="bottom: 8%; left: 25%; width: 50%; height: 10%;" onclick="showPage('page2')"></div>
+    </div>
+
+    <div id="page2" class="page">
+        <img src="gambar2.png" alt="Cek Legalitas">
+        <div id="input-container">
+            <input type="text" id="search-input" placeholder="Cari nama perusahaan...">
+        </div>
+        <div class="clickable" style="top: 67%; left: 10%; width: 80%; height: 8%;" onclick="validateInput()"></div>
+    </div>
+
+    <div id="page3" class="page">
+        <img src="gambar3.png" alt="Terdaftar OJK">
+        <div class="clickable" style="bottom: 15%; right: 10%; width: 35%; height: 10%;" onclick="showPage('page5')"></div>
+    </div>
+
+    <div id="page4" class="page">
+        <img src="gambar4.png" alt="Tidak Terdaftar">
+        <div class="clickable" style="bottom: 20%; left: 10%; width: 25%; height: 8%;" onclick="showPage('page2')"></div>
+    </div>
+
+    <div id="page5" class="page">
+        <img src="gambar5.png" alt="Detail Perusahaan">
+        <div class="clickable" style="top: 4%; left: 5%; width: 12%; height: 7%;" onclick="showPage('page3')"></div>
+        <div class="clickable" style="bottom: 3%; right: 5%; width: 30%; height: 8%;" onclick="showPage('page6')"></div>
+    </div>
+
+    <div id="page6" class="page">
+        <img src="gambar6.png" alt="Perhitungan Bunga">
+        <div class="clickable" style="bottom: 3%; left: 10%; width: 80%; height: 8%;" onclick="showPage('page1')"></div>
+    </div>
+
+</div>
+
+<script>
+    function showPage(pageId) {
+        // Sembunyikan semua halaman
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        
+        // Tampilkan halaman yang dituju
+        document.getElementById(pageId).classList.add('active');
+
+        // Reset input jika kembali ke halaman 2
+        if(pageId === 'page2') {
+            document.getElementById('search-input').value = '';
+        }
+    }
+
+    function validateInput() {
+        const input = document.getElementById('search-input').value.toLowerCase().trim();
+        const keywords = ["fintek", "maju", "sejahtera", "fintek maju sejahtera"];
+
+        if (keywords.includes(input)) {
+            showPage('page3');
+        } else {
+            showPage('page4');
+        }
+    }
+</script>
+
+</body>
+</html>
